@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="utf-8">
+    <title>麥當勞評價平台</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container-xxl bg-white p-0">
+        <!-- 導航列 -->
+        <div class="container-xxl position-relative p-0">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4 px-lg-5 py-3 py-lg-0">
+                <a href="{{ url_for('index') }}" class="navbar-brand p-0">
+                    <h1 class="text-primary m-0"><i class="fa fa-utensils me-3"></i>麥當勞評價平台</h1>
+                </a>
+                <div class="navbar-nav ms-auto py-0 pe-4">
+                    <a href="{{ url_for('index') }}" class="nav-item nav-link active">首頁</a>
+                    <a href="{{ url_for('restaurants') }}" class="nav-item nav-link">餐廳列表</a>
+                </div>
+            </nav>
+
+            <!-- Hero 區塊 -->
+            <div class="container-xxl py-5 bg-dark hero-header mb-5">
+                <div class="container my-5 py-5">
+                    <div class="row align-items-center g-5">
+                        <div class="col-lg-6 text-center text-lg-start">
+                            <h1 class="display-5 text-white">尋找台中最佳<br>麥當勞分店</h1>
+                            <p class="text-white mb-4 pb-2">分享您的用餐體驗，幫助其他顧客找到最棒的麥當勞分店。從西屯到逢甲，從一中到南屯，探索台中四大麥當勞據點！</p>
+                            <a href="{{ url_for('restaurants') }}" class="btn btn-primary py-sm-3 px-sm-5 me-3">探索分店</a>
+                        </div>
+                        <div class="col-lg-6 text-center text-lg-center">
+                            <img class="img-fluid" src="{{ url_for('static', filename='img/hero.png') }}" alt="麥當勞" style="max-height: 200px;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 搜尋區塊 -->
+        <div class="container-xxl py-5">
+            <div class="container">
+                <div class="text-center">
+                    <h5 class="section-title text-center text-primary fw-normal">搜尋分店</h5>
+                    <h1 class="mb-5">找到您附近的麥當勞</h1>
+                </div>
+                <div class="row g-4">
+                    <div class="col-md-8 offset-md-2">
+                        <form action="{{ url_for('restaurants') }}" method="GET" class="d-flex">
+                            <div class="input-group">
+                                <input type="text" name="q" class="form-control form-control-lg" placeholder="輸入區域名稱，如：西屯、逢甲、一中、南屯..." required>
+                                <button class="btn btn-primary btn-lg" type="submit">
+                                    <i class="fa fa-search"></i> 搜尋
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 精選分店 -->
+        <div class="container-xxl py-5">
+            <div class="container">
+                <div class="text-center">
+                    <h5 class="section-title text-center text-primary fw-normal">精選分店</h5>
+                    <h1 class="mb-5">熱門麥當勞分店</h1>
+                </div>
+                <div class="row g-4">
+                    {% if restaurants %}
+                        {% for restaurant in restaurants %}
+                        <div class="col-lg-6 col-md-6">
+                            <div class="card h-100 shadow-sm">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center mb-3">
+                                        <div class="flex-shrink-0">
+                                            <img class="img-fluid rounded-circle" src="{{ url_for('static', filename='img/team-1.jpg') }}" alt="" style="width: 60px; height: 60px;">
+                                        </div>
+                                        <div class="ms-3">
+                                            <h5 class="card-title mb-1">{{ restaurant.name }}</h5>
+                                            <div class="text-warning mb-1">
+                                                {% for i in range(restaurant.rating|int) %}
+                                                    <i class="fa fa-star"></i>
+                                                {% endfor %}
+                                                {% for i in range(5 - restaurant.rating|int) %}
+                                                    <i class="fa fa-star text-muted"></i>
+                                                {% endfor %}
+                                                <span class="text-dark ms-2">{{ restaurant.rating }}/5</span>
+                                            </div>
+                                            <small class="text-muted">{{ restaurant.reviews }} 則評價</small>
+                                        </div>
+                                    </div>
+                                    <p class="card-text">
+                                        <i class="fa fa-map-marker-alt text-primary"></i> {{ restaurant.address }}
+                                    </p>
+                                    <p class="card-text">
+                                        <i class="fa fa-phone text-primary"></i> {{ restaurant.phone }}
+                                    </p>
+                                    <div class="d-grid">
+                                        <a href="{{ url_for('restaurant_detail', restaurant_id=restaurant.id) }}" class="btn btn-primary">
+                                            查看詳情 <i class="fa fa-arrow-right ms-2"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="col-12 text-center">
+                            <p class="text-muted">暫無精選餐廳資料</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- 關於我們 -->
+        <div class="container-xxl py-5">
+            <div class="container">
+                <div class="row g-5 align-items-center">
+                    <div class="col-lg-6">
+                        <div class="row g-3">
+                            <div class="col-6 text-start">
+                                <img class="img-fluid rounded w-100" src="{{ url_for('static', filename='img/about-1.jpg') }}">
+                            </div>
+                            <div class="col-6 text-start">
+                                <img class="img-fluid rounded w-75" src="{{ url_for('static', filename='img/about-2.jpg') }}" style="margin-top: 25%;">
+                            </div>
+                            <div class="col-6 text-end">
+                                <img class="img-fluid rounded w-75" src="{{ url_for('static', filename='img/about-3.jpg') }}">
+                            </div>
+                            <div class="col-6 text-end">
+                                <img class="img-fluid rounded w-100" src="{{ url_for('static', filename='img/about-4.jpg') }}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <h5 class="section-title text-start text-primary fw-normal">關於我們</h5>
+                        <h1 class="mb-4">歡迎來到台中麥當勞評價平台</h1>
+                        <p class="mb-4">我們致力於提供最真實、最詳細的台中麥當勞分店評價資訊。無論您是在尋找最近的分店、比較服務品質，還是想了解各店的特色服務，我們都能幫助您做出最佳選擇。</p>
+                        <p class="mb-4">從台中西屯的商業區據點，到逢甲夜市的24小時服務，從一中街的學生聚集地，到南屯的家庭友善環境，每家麥當勞都有其獨特魅力。</p>
+                        <div class="row g-4 mb-4">
+                            <div class="col-sm-6">
+                                <div class="d-flex align-items-center border-start border-5 border-primary ps-3">
+                                    <h2 class="text-primary fw-bold mb-0">4</h2>
+                                    <div class="ps-4">
+                                        <p class="mb-0">家分店</p>
+                                        <h6 class="text-uppercase mb-0">覆蓋台中</h6>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="d-flex align-items-center border-start border-5 border-primary ps-3">
+                                    <h2 class="text-primary fw-bold mb-0">50+</h2>
+                                    <div class="ps-4">
+                                        <p class="mb-0">則評價</p>
+                                        <h6 class="text-uppercase mb-0">真實評價</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a class="btn btn-primary py-3 px-5 mt-2" href="{{ url_for('restaurants') }}">探索更多</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer -->
+        <div class="container-fluid bg-dark text-light footer pt-5 mt-5">
+            <div class="container py-5">
+                <div class="row g-5">
+                    <div class="col-lg-4 col-md-6">
+                        <h4 class="text-primary mb-4">網站設計資料</h4>
+                        <p class="mb-2"><i class="fa fa-info-circle me-3"></i><a href="{{ url_for('disclaimer') }}" class="text-light">免責聲明（點擊查看詳細<
+/a></p>
+                        <p class="mb-2"><i class="fa fa-user me-3"></i>Website Design - Li-An, Chen</p>
+<p class="mb-2"><i class="fa fa-lightbulb me-3"></i>Inspiration - McDonald & Google Map</p>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <h4 class="text-primary mb-4">快速連結</h4>
+                        <a class="btn btn-link" href="{{ url_for('index') }}">首頁</a>
+                        <a class="btn btn-link" href="{{ url_for('restaurants') }}">餐廳列表</a>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <h4 class="text-primary mb-4">營業時間</h4>
+                        <p>各分店營業時間不同</p>
+                        <p>詳見各分店詳細資訊</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

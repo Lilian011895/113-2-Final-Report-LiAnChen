@@ -179,5 +179,11 @@
 - 科系: 資訊工程學系
 - 課程: 113-2 進階程式設計-期末專題報告
 
+## 免責聲明
+
+
+本網站為學術用途之作品，僅供課堂期末報告使用。所有內容皆為作者基於個人經驗所撰寫，與麥當勞公司無任何關係或合作。網站中如有使用到麥當勞餐點名稱、圖片、Logo等內容，僅為評論與學習展示之用，相關智慧財產權皆屬原公司所有，無商業使用意圖。若有不妥之處，歡迎聯繫指正。
+
+This website is a student project created solely for academic purposes as part of a final assignment. All content reflects personal opinions and experiences, and has no affiliation or partnership with McDonald's Corporation. Any use of McDonald's product names, images, or logos is for commentary and educational demonstration only. All trademarks and copyrights belong to their respective owners. If there are any concerns, please contact us and we will take action as needed.
 
 **最後更新**: 2025年6月14日

@@ -94,7 +94,7 @@
 ### 網站導覽
 1. **首頁瀏覽**: 進入網站首頁，瀏覽精選的台中麥當勞分店
 2. **分店詳情**: 點擊任一分店卡片，查看詳細資訊
-3. **評價功能**: 在分店詳情頁面留下您的評價與評分 ⭐
+3. **評價功能**: 在分店詳情頁面留下您的評價與評分
 4. **免責聲明**: 點擊頁面底部的免責聲明了解使用條款
 
 ### 特色功能
@@ -121,7 +121,7 @@
 - **設施介紹**: 座位數、停車場、得來速等資訊
 - **用戶評價**: 真實評價與評分系統
 
-## 🗂資料結構
+## 資料結構
 
 ### 分店資料格式
 ```python
@@ -188,4 +188,4 @@
 
 This website is a student project created solely for academic purposes as part of a final assignment. All content reflects personal opinions and experiences, and has no affiliation or partnership with McDonald's Corporation. Any use of McDonald's product names, images, or logos is for commentary and educational demonstration only. All trademarks and copyrights belong to their respective owners. If there are any concerns, please contact us and we will take action as needed.
 
-**最後更新**: 2025年6月14日
+**最後更新**: 2025年6月17日
